@@ -1,0 +1,73 @@
+---
+title: "NYPD shooting incident data"
+author: "Amal Almutairy"
+date: "11-10-2020"
+output: 
+  html_document:
+    theme: journal
+    highlight: tango
+    toc: true
+    toc_depth: 4
+    toc_float:
+      collapsed: false
+---
+## packages
+```{r}
+# packages required
+library(dplyr)
+library(ggplot2)
+library(rsample)
+library(recipes)
+library(caret)
+library(funModeling) 
+library(tidyverse) 
+library(Hmisc)
+```
+
+```
+# data source:
+# url(https://www.kaggle.com/thaddeussegura/new-york-city-shooting-dataset)
+```
+
+## new york city shooting dataset
+```{r cars}
+NYPD_shooting <- read.csv("NYPD_Shooting_Incident_Data__Historic_.csv")
+```
+
+## NYPD dimention
+```{r}
+head(NYPD_shooting)
+dim(NYPD_shooting)
+str(NYPD_shooting)
+
+# omit missing value:
+NYPD_shooting <- na.omit(NYPD_shooting)
+```
+
+
+## new york city shooting (VIC_RACE)
+```{r}
+NYPD_sh=NYPD_shooting %>% select(VIC_RACE, VIC_SEX, VIC_AGE_GROUP, PERP_RACE, OCCUR_TIME, BORO)
+
+glimpse(NYPD_sh)
+```
+
+
+```{r}
+# omit missing value:
+NYPD_sh <- na.omit(NYPD_sh)
+status(NYPD_sh)
+```
+
+## Plot the frequency of NYPD shooting
+```{r}
+freq(NYPD_sh)
+```
+
+## Plot the frequency of NYPD shooting of the victom race
+```{r}
+freq(NYPD_sh$VIC_RACE)
+freq(NYPD_sh, path_out = ".")
+```
+
+
