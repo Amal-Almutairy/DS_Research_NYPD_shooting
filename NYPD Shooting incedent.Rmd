@@ -3,15 +3,15 @@ title: "NYPD shooting incident data"
 author: "Amal Almutairy"
 date: "11-10-2020"
 output: 
-  html_document:
+  html_document: 
     theme: journal
-    highlight: tango
+    highlight: monochrome
     toc: true
     toc_depth: 4
     toc_float:
       collapsed: false
 ---
-## packages
+
 ```{r}
 # packages required
 library(dplyr)
@@ -22,6 +22,7 @@ library(caret)
 library(funModeling) 
 library(tidyverse) 
 library(Hmisc)
+library(DT)
 ```
 
 ```
@@ -29,8 +30,13 @@ library(Hmisc)
 # url(https://www.kaggle.com/thaddeussegura/new-york-city-shooting-dataset)
 ```
 
-## new york city shooting dataset
-```{r cars}
+## new york city shooting 
+List of every shooting incident that occurred in NYC going back to 2006 through the end of the previous calendar year.
+
+Did the NYPD prevent the city from sliding back into the violence of previous eras.
+Here’s a look at recent shooting incidents and victims.
+The data is supplied by the NYPD.
+```{r}
 NYPD_shooting <- read.csv("NYPD_Shooting_Incident_Data__Historic_.csv")
 ```
 
@@ -38,25 +44,22 @@ NYPD_shooting <- read.csv("NYPD_Shooting_Incident_Data__Historic_.csv")
 ```{r}
 head(NYPD_shooting)
 dim(NYPD_shooting)
-str(NYPD_shooting)
 
 # omit missing value:
 NYPD_shooting <- na.omit(NYPD_shooting)
 ```
-
-
-## new york city shooting (VIC_RACE)
+## Number of Deaths
 ```{r}
-NYPD_sh=NYPD_shooting %>% select(VIC_RACE, VIC_SEX, VIC_AGE_GROUP, PERP_RACE, OCCUR_TIME, BORO)
-
-glimpse(NYPD_sh)
+STATISTICAL_MURDER_FLAG <- NYPD_shooting$STATISTICAL_MURDER_FLAG 
+qplot(STATISTICAL_MURDER_FLAG)
 ```
 
 
+## new york city shooting 
 ```{r}
-# omit missing value:
-NYPD_sh <- na.omit(NYPD_sh)
-status(NYPD_sh)
+NYPD_sh=NYPD_shooting %>% select(VIC_RACE, VIC_SEX, VIC_AGE_GROUP, PERP_RACE, OCCUR_TIME, BORO)
+NYPD_sh
+
 ```
 
 ## Plot the frequency of NYPD shooting
